@@ -71,7 +71,7 @@ class ProductoBase(BaseModel):
         """
         if v <= 0:
             raise ValueError('El precio debe ser mayor a 0')
-        if v > 999999999.99:
+        if v > 99999999.99:
             raise ValueError('El precio es demasiado alto')
         return v
 
