@@ -8,7 +8,7 @@ trabajar con la base de datos usando objetos de Python en lugar
 de escribir SQL directamente.
 """
 
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, text
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from .config import settings
@@ -80,3 +80,20 @@ def get_db():
         yield db  # Proporcionar la sesión al endpoint
     finally:
         db.close()  # Cerrar la sesión cuando termine (siempre se ejecuta)
+
+
+# ========================================
+# FUNCIÓN PARA PROBAR CONEXIÓN A BD
+# ========================================
+def test_connection():
+    """
+    Prueba la conexión a la base de datos.
+
+    Lanza una excepción si no puede conectarse, con un mensaje descriptivo.
+    """
+    try:
+        # Intentar conectar y ejecutar una query simple
+        with engine.connect() as conn:
+            conn.execute(text("SELECT 1"))  # Verificar conexión
+    except Exception as e:
+        raise Exception(f"No se pudo conectar a la base de datos: {e}") from e

@@ -19,7 +19,7 @@ from app.routers import productos_router, clientes_router, auditoria_router
 
 # Importar configuración y base de datos
 from app.config import settings
-from app.database import engine, Base
+from app.database import engine, Base, test_connection
 
 # ========================================
 # CREAR LAS TABLAS EN LA BASE DE DATOS
@@ -31,6 +31,9 @@ si no existen en la base de datos.
 IMPORTANTE: En producción se usaría Alembic para migraciones,
 pero para el curso esto es más simple y directo.
 """
+# Probar la conexión a la base de datos antes de crear tablas
+test_connection()
+
 Base.metadata.create_all(bind=engine)
 
 
